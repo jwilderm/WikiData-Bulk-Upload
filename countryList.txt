@@ -1,0 +1,6 @@
+France,Q142
+Italy,Q38
+Germany,Q183
+Switzerland,Q39
+Austria,Q40
+Liechtenstein,Q347

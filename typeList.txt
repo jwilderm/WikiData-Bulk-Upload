@@ -1,0 +1,4 @@
+Castle,Q23413
+Stately,Q751876
+Fortress,Q1785071
+Manor,Q1802963
