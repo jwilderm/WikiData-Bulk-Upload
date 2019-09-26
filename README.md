@@ -30,6 +30,6 @@ This repository contains python-scripts which helps one to create a list of Wiki
 - Reference the WikiData-items in the matching OSM-entries
   - Run the script "wikiDataFinder.py"
   - It iterates through "CastleUpload.csv", gets the coordinates from a castle and opens new browser-tabs:
-    - Openstreetsmap in edit-mode on the given coordinates
+    - Openstreetsmap in edit-mode on the given coordinates (You also need an account for that)
     - All WikiData-items 100 meters near the given coordinates
   - If you're sure the castle on OSM and the WikiData-item match, reference the item on the OSM-entry. Press Enter to proceed with the following castle until you're done.
