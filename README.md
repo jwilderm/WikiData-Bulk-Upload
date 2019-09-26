@@ -21,9 +21,15 @@ This repository contains python-scripts which helps one to create a list of Wiki
   - The names of the castles in "CastleData.txt" may be in the incorrect position. (Name-DE,Name-FR,Name-IT,...)
   - You have to correct that issue manually, but the script "languageConverter.py" can help you with that.
   - When you execute it, it displays all the castles step by step. You'll see if the name is at the correct position or not. The script allows you to correct it if necessary before it proceeds to display the following castle.
-  - When the script finishes iterating through all the castles, it creates a new file "CastleUpload.csv".
+  - When the script finishes iterating through all the castles, it creates a new file "CastleUpload.csv". If there somehow already is such a file, it'll get overwritten.
 - Generate the WikiData-items
   - Copy all the data from "CastleUpload.csv".
-  - Go to https://tools.wmflabs.org/quickstatements/#/batch.
+  - Go to https://tools.wmflabs.org/quickstatements/#/batch. (You need an account to be able to create WikiData-items)
   - Paste the data into the text-box and click on "Import CSV commands"
-  - Click "Run" or "Run in background"
+  - Click "Run" or "Run in background". It should generate one WikiData-item for each castle.
+- Reference the WikiData-items in the matching OSM-entries
+  - Run the script "wikiDataFinder.py"
+  - It iterates through "CastleUpload.csv", gets the coordinates from a castle and opens new browser-tabs:
+    - Openstreetsmap in edit-mode on the given coordinates
+    - All WikiData-items 100 meters near the given coordinates
+  - If you're sure the castle on OSM and the WikiData-item match, reference the item on the OSM-entry. Press Enter to proceed with the following castle until you're done.
