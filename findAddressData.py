@@ -137,22 +137,22 @@ except FileNotFoundError:
     print('Castles.txt not found.')
 
 # The output is a file which contains address-data and other information of all the castles
-w = open('CastleData.txt', 'w')
-while index < len(castles):
-    data = castles[index].split('\t', 2)
-    if data[2][-1] == '\n':
-        data[2] = data[2][:-1]
-    if data[2] == '-':
-        data[2] = ''
-    address = find_address(data[0], data[1])
-    castle_type = find_type(data[0], data[1])
-    languages = get_language(data[2], address[2], castle_type)
+with open('CastleData.txt', 'w') as w:
+    while index < len(castles):
+        data = castles[index].split('\t', 2)
+        if data[2][-1] == '\n':
+            data[2] = data[2][:-1]
+        if data[2] == '-':
+            data[2] = ''
+        address = find_address(data[0], data[1])
+        castle_type = find_type(data[0], data[1])
+        languages = get_language(data[2], address[2], castle_type)
 
-    for line in languages:
-        w.write(f'{line},')
-    address[1] = f'{address[1]}>{address[2]}'
-    address[0] = f'{address[0]}>{address[1]}'
-    w.write(f'{castle_type},{address[0]},{address[1]},{address[2]},{address[3]}\n')
+        for line in languages:
+            w.write(f'{line},')
+        address[1] = f'{address[1]}>{address[2]}'
+        address[0] = f'{address[0]}>{address[1]}'
+        w.write(f'{castle_type},{address[0]},{address[1]},{address[2]},{address[3]}\n')
 
-    index += 1
+        index += 1
 w.close()

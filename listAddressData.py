@@ -58,22 +58,22 @@ while index < len(castles):
     index += 1
 
 # The output is two files which contain all the towns and states. The matching Q-Numbers should be added manually
-w = open('townList.txt', 'w')
-i = 0
-while i < len(town_list):
-    if i < len(towns):
-        w.write(towns[i])
-    else:
-        w.write(f'{town_list[i]},\n')
-    i += 1
+with open('townList.txt', 'w') as w:
+    i = 0
+    while i < len(town_list):
+        if i < len(towns):
+            w.write(towns[i])
+        else:
+            w.write(f'{town_list[i]},\n')
+        i += 1
 w.close()
 
-v = open('stateList.txt', 'w')
-i = 0
-while i < len(state_list):
-    if i < len(states):
-        v.write(states[i])
-    else:
-        v.write(f'{state_list[i]},\n')
-    i += 1
+with open('stateList.txt', 'w') as v:
+    i = 0
+    while i < len(state_list):
+        if i < len(states):
+            v.write(states[i])
+        else:
+            v.write(f'{state_list[i]},\n')
+        i += 1
 v.close()
