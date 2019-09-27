@@ -7,11 +7,10 @@ except FileNotFoundError:
     print('CastleData.txt not found.')
 
 index = 0
-inTownList = False
-inStateList = False
+in_list = False
 
-townList = []
-stateList = []
+town_list = []
+state_list = []
 
 # If there already are some towns and states in the output-files (from previous castle-lists), this part of the script reads through these files too
 try:
@@ -20,10 +19,10 @@ try:
     t.close()
     i = 0
     while i < len(towns) - 1:
-        townList[i] = towns[i].split(',')[0]
+        town_list[i] = towns[i].split(',')[0]
         i += 1
 except FileNotFoundError:
-    townList = []
+    town_list = []
     towns = []
 
 try:
@@ -32,49 +31,49 @@ try:
     s.close()
     i = 0
     while i < len(states) - 1:
-        stateList[i] = states[i].split(',')[0]
+        state_list[i] = states[i].split(',')[0]
         i += 1
 except FileNotFoundError:
-    stateList = []
+    state_list = []
     states = []
 
 # This part makes sure the towns and states only appear once in the arrays, it generates no duplicates
 while index < len(castles):
-    castleTown = castles[index].split(',')[7]
-    castleState = castles[index].split(',')[8]
-    for town in townList:
-        if town == castleTown:
-            inTownList = True
+    castle_town = castles[index].split(',')[7]
+    castle_state = castles[index].split(',')[8]
+    for town in town_list:
+        if town == castle_town:
+            in_list = True
             break
-    if inTownList == False:
-        townList.append(castleTown)
-    for state in stateList:
-        if state == castleState:
-            inStateList = True
+    if in_list == False:
+        town_list.append(castle_town)
+    in_list = False
+    for state in state_list:
+        if state == castle_state:
+            instate_list = True
             break
-    if inStateList == False:
-        stateList.append(castleState)
-    inTownList = False
-    inStateList = False
+    if in_list == False:
+        state_list.append(castle_state)
+    in_list = False
     index += 1
 
 # The output is two files which contain all the towns and states. The matching Q-Numbers should be added manually
 w = open('townList.txt', 'w')
 i = 0
-while i < len(townList):
+while i < len(town_list):
     if i < len(towns):
         w.write(towns[i])
     else:
-        w.write(townList[i] + ',\n')
+        w.write(town_list[i] + ',\n')
     i += 1
 w.close()
 
 v = open('stateList.txt', 'w')
 i = 0
-while i < len(stateList):
+while i < len(state_list):
     if i < len(states):
         v.write(states[i])
     else:
-        v.write(stateList[i] + ',\n')
+        v.write(state_list[i] + ',\n')
     i += 1
 v.close()

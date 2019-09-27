@@ -42,38 +42,38 @@ output = ''
 try:
     w = open('CastleData.txt', 'w')
     while index < len(castles):
-        castleData = castles[index].split(',')
+        castle_data = castles[index].split(',')
         for town in towns:
-            if town.split(',')[0] == castleData[7]:
-                castleData[7] = town.split(',')[1][:-1]
-                if castleData[7] == '':
+            if town.split(',')[0] == castle_data[7]:
+                castle_data[7] = town.split(',')[1][:-1]
+                if castle_data[7] == '':
                     print('townList.txt is incomplete. Make sure it is before you proceed.')
                     raise ListIncompleteError
                 break
-        if castleData[8] != '':
+        if castle_data[8] != '':
             for state in states:
-                if state.split(',')[0] == castleData[8]:
-                    castleData[8] = state.split(',')[1][:-1]
-                    if castleData[8] == '':
+                if state.split(',')[0] == castle_data[8]:
+                    castle_data[8] = state.split(',')[1][:-1]
+                    if castle_data[8] == '':
                         print('stateList.txt is incomplete. Make sure it is before you proceed.')
                         raise ListIncompleteError
                     break
         for country in countries:
-            if country.split(',')[0] == castleData[9]:
-                castleData[9] = country.split(',')[1][:-1]
-                if castleData[9] == '':
+            if country.split(',')[0] == castle_data[9]:
+                castle_data[9] = country.split(',')[1][:-1]
+                if castle_data[9] == '':
                     print('countryList.txt is incomplete. Make sure it is before you proceed.')
                     raise ListIncompleteError
                 break
         for type in types:
-            if type.split(',')[0] == castleData[6]:
-                castleData[6] = type.split(',')[1][:-1]
-                if castleData[6] == '':
+            if type.split(',')[0] == castle_data[6]:
+                castle_data[6] = type.split(',')[1][:-1]
+                if castle_data[6] == '':
                     print('typeList.txt is incomplete. Make sure it is before you proceed.')
                     raise ListIncompleteError
                 break
         str = ''
-        for data in castleData:
+        for data in castle_data:
             str += (data + ',')
         output += str[:-1]
         index += 1

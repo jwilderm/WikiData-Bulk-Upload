@@ -2,120 +2,120 @@ import urllib.request
 import json
 
 # This method gets the town, state, country and coordinates of the castle from nominatim/lookup
-def findAddress(osmID, osmType):
+def find_address(osm_id, osm_type):
     address = ['','','','']
-    fp = urllib.request.urlopen('https://nominatim.openstreetmap.org/lookup?osm_ids={osmType}{osmID}&format=json'.format(osmType=osmType.capitalize()[0],osmID=osmID))
-    mybytes = fp.read()
-    mystr = mybytes.decode("utf8")
-    mySplit = mystr.split('\n')
+    fp = urllib.request.urlopen('https://nominatim.openstreetmap.org/lookup?osm_ids={osm_type}{osm_id}&format=json'.format(osm_type=osm_type.capitalize()[0],osm_id=osm_id))
+    my_bytes = fp.read()
+    my_string = my_bytes.decode("utf8")
+    my_split = my_string.split('\n')
     fp.close()
-    for line in mySplit:
+    for line in my_split:
         if '[{' in line:
-            jsonData = json.loads(line[:-1][1:])
+            json_data = json.loads(line[:-1][1:])
             break
-    if 'town' in jsonData['address']:
-        address[0] = jsonData['address']['town']
-    elif 'village' in jsonData['address']:
-        address[0] = jsonData['address']['village']
-    elif 'city' in jsonData['address']:
-        address[0] = jsonData['address']['city']
+    if 'town' in json_data['address']:
+        address[0] = json_data['address']['town']
+    elif 'village' in json_data['address']:
+        address[0] = json_data['address']['village']
+    elif 'city' in json_data['address']:
+        address[0] = json_data['address']['city']
     else:
         address[0] = 'Nothing'
     try:
-        address[1] = jsonData['address']['state']
+        address[1] = json_data['address']['state']
     except:
         pass
-    if 'Schweiz' in jsonData['address']['country'] or 'Switzerland' in jsonData['address']['country']:
+    if 'Schweiz' in json_data['address']['country'] or 'Switzerland' in json_data['address']['country']:
         address[2] = 'Switzerland'
-    elif 'Deutschland' in jsonData['address']['country'] or 'Germany' in jsonData['address']['country']:
+    elif 'Deutschland' in json_data['address']['country'] or 'Germany' in json_data['address']['country']:
         address[2] = 'Germany'
-    elif 'Österreich' in jsonData['address']['country'] or 'Austria' in jsonData['address']['country']:
+    elif 'Österreich' in json_data['address']['country'] or 'Austria' in json_data['address']['country']:
         address[2] = 'Austria'
-    elif 'Liechtenstein' in jsonData['address']['country']:
+    elif 'Liechtenstein' in json_data['address']['country']:
         address[2] = 'Liechtenstein'
-    elif 'Frankreich' in jsonData['address']['country'] or 'France' in jsonData['address']['country']:
+    elif 'Frankreich' in json_data['address']['country'] or 'France' in json_data['address']['country']:
         address[2] = 'France'
-    elif 'Italien' in jsonData['address']['country'] or 'Italy' in jsonData['address']['country'] or 'Italia' in jsonData['address']['country']:
+    elif 'Italien' in json_data['address']['country'] or 'Italy' in json_data['address']['country'] or 'Italia' in json_data['address']['country']:
         address[2] = 'Italy'
-    address[3] = '@' + jsonData['lat'] + '/' + jsonData['lon']
+    address[3] = '@' + json_data['lat'] + '/' + json_data['lon']
     return address
 
-# This method searches for the castletype on openstreetmap
-def findType(osmID, osmType):
-    fp = urllib.request.urlopen('https://www.openstreetmap.org/{osmType}/{osmID}'.format(osmType=osmType,osmID=osmID))
-    mybytes = fp.read()
+# This method searches for the castle_type on openstreetmap
+def find_type(osm_id, osm_type):
+    fp = urllib.request.urlopen('https://www.openstreetmap.org/{osm_type}/{osm_id}'.format(osm_type=osm_type,osm_id=osm_id))
+    my_bytes = fp.read()
 
-    mystr = mybytes.decode("utf8")
-    mySplit = mystr.split('\n')
+    my_string = my_bytes.decode("utf8")
+    my_split = my_string.split('\n')
     fp.close()
 
-    for line in mySplit:
+    for line in my_split:
         if '<a title="' in line and '">stately</a>' in line:
-            castleType = 'Stately'
+            castle_type = 'Stately'
             break
         elif '<a title="' in line and '">defensive</a>' in line:
-            castleType = 'Castle'
+            castle_type = 'Castle'
             break
         elif 'a title="' in line and '">manor</a>' in line:
-            castleType = 'Manor'
+            castle_type = 'Manor'
             break
         elif 'a title="' in line and '">fortress</a>' in line:
-            castleType = 'Fortress'
+            castle_type = 'Fortress'
             break
         elif '<td class="browse-tag-v">tower</td>' in line:
-            castleType = 'Castle'
+            castle_type = 'Castle'
             break
         elif '<td class="browse-tag-v">castle</td>' in line:
-            castleType = 'Castle'
+            castle_type = 'Castle'
             break
         else:
-            castleType = 'Castle'
-    return castleType
+            castle_type = 'Castle'
+    return castle_type
 
 # This method speculates what the language of the name of the castle is and also generates a simple description in all three languages
-def getLanguage(name, country, castleType):
+def get_language(name, country, castle_type):
     languages = ['', '', '', '', '', '']
-    countrynr = 0
-    countryde = ['Schweiz', 'Deutschland', 'Österreich', 'Frankreich', 'Italien', 'Liechtenstein']
-    countryfr = ['Suisse', 'Allemagne', 'Autriche', 'France', 'Italie', 'Liechtenstein']
-    countryit = ['Svizzera', 'Germania', 'Austria', 'Francia', 'Italia', 'Liechtenstein']
+    country_nr = 0
+    country_de = ['Schweiz', 'Deutschland', 'Österreich', 'Frankreich', 'Italien', 'Liechtenstein']
+    country_fr = ['Suisse', 'Allemagne', 'Autriche', 'France', 'Italie', 'Liechtenstein']
+    country_it = ['Svizzera', 'Germania', 'Austria', 'Francia', 'Italia', 'Liechtenstein']
 
-    typenr = 0
-    typede = ['Burg', 'Schloss', 'Herrenhaus', 'Fort']
-    typefr = ['Château fort', 'Château', 'Maison bourgeoise', 'Fort']
-    typeit = ['Castello', 'Castello', 'Magione', 'Forte']
+    type_nr = 0
+    type_de = ['Burg', 'Schloss', 'Herrenhaus', 'Fort']
+    type_fr = ['Château fort', 'Château', 'Maison bourgeoise', 'Fort']
+    type_it = ['Castello', 'Castello', 'Magione', 'Forte']
     
     if country == 'France':
         languages[1] = name
-        countrynr = 3
+        country_nr = 3
     elif country == 'Italy':
         languages[2] = name
-        countrynr = 4
+        country_nr = 4
     elif country == 'Switzerland':
         languages[0] = name
-        countrynr = 0
+        country_nr = 0
     elif country == 'Germany':
         languages[0] = name
-        countrynr = 1
+        country_nr = 1
     elif country == 'Austria':
         languages[0] = name
-        countrynr = 2
+        country_nr = 2
     elif country == 'Liechtenstein':
         languages[0] = name
-        countrynr = 5
+        country_nr = 5
     
-    if castleType == 'Castle':
-        typenr = 0
-    elif castleType == 'Stately':
-        typenr = 1
-    elif castleType == 'Manor':
-        typenr = 2
-    elif castleType == 'Fortress':
-        typenr = 3
+    if castle_type == 'Castle':
+        type_nr = 0
+    elif castle_type == 'Stately':
+        type_nr = 1
+    elif castle_type == 'Manor':
+        type_nr = 2
+    elif castle_type == 'Fortress':
+        type_nr = 3
 
-    languages[3] = typede[typenr] + ' (' + countryde[countrynr] + ')'
-    languages[4] = typefr[typenr] + ' (' + countryfr[countrynr] + ')'
-    languages[5] = typeit[typenr] + ' (' + countryit[countrynr] + ')'
+    languages[3] = type_de[type_nr] + ' (' + country_de[country_nr] + ')'
+    languages[4] = type_fr[type_nr] + ' (' + country_fr[country_nr] + ')'
+    languages[5] = type_it[type_nr] + ' (' + country_it[country_nr] + ')'
     return languages
 
 index = 0
@@ -135,15 +135,15 @@ while index < len(castles):
         data[2] = data[2][:-1]
     if data[2] == '-':
         data[2] = ''
-    address = findAddress(data[0], data[1])
-    castleType = findType(data[0], data[1])
-    languages = getLanguage(data[2], address[2], castleType)
+    address = find_address(data[0], data[1])
+    castle_type = find_type(data[0], data[1])
+    languages = get_language(data[2], address[2], castle_type)
 
     for line in languages:
         w.write(line + ',')
     address[1] = address[1] + '>' + address[2]
     address[0] = address[0] + '>' + address[1]
-    w.write(castleType + ',' + address[0] + ',' + address[1] + ',' + address[2] + ',' + address[3] + '\n')
+    w.write(castle_type + ',' + address[0] + ',' + address[1] + ',' + address[2] + ',' + address[3] + '\n')
 
     index += 1
 w.close()
