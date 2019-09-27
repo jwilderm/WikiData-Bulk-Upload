@@ -1,7 +1,10 @@
 # This script goes through the list of castles and finds all the referenced towns and states in which the castles are
-with open('CastleData.txt', 'r') as f:
-    castles = f.readlines()
-f.close()
+try:
+    with open('CastleData.txt', 'r') as f:
+        castles = f.readlines()
+    f.close()
+except FileNotFoundError:
+    print('CastleData.txt not found.')
 
 index = 0
 inTownList = False

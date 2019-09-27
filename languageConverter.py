@@ -7,9 +7,12 @@ def changeLang(de, fr, it):
     else:
         return it
 
-with open('CastleData.txt', 'r') as f:
-    castles = f.readlines()
-f.close()
+try:
+    with open('CastleData.txt', 'r') as f:
+        castles = f.readlines()
+    f.close()
+except FileNotFoundError:
+    print('CastleData.txt not found.')
 
 index = 0
 

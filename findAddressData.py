@@ -120,9 +120,12 @@ def getLanguage(name, country, castleType):
 
 index = 0
 # Read file and make a list of all castles
-with open('Castles.txt') as f:
-    castles = f.readlines()
-f.close()
+try:
+    with open('Castles.txt') as f:
+        castles = f.readlines()
+    f.close()
+except FileNotFoundError:
+    print('Castles.txt not found.')
 
 # The output is a file which contains address-data and other information of all the castles
 w = open('CastleData.txt', 'w')

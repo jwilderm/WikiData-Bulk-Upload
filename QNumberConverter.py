@@ -1,23 +1,34 @@
 #This script opens the castle-list and replaces all castle-types, towns, states and country with their Q-Number
-with open('CastleData.txt', 'r') as f:
-    castles = f.readlines()
-f.close()
-
-with open('townList.txt', 'r') as f:
-    towns = f.readlines()
-f.close()
-
-with open('stateList.txt', 'r') as f:
-    states = f.readlines()
-f.close()
-
-with open('countryList.txt', 'r') as f:
-    countries = f.readlines()
-f.close()
-
-with open('typeList.txt', 'r') as f:
-    types = f.readlines()
-f.close()
+try:
+    with open('CastleData.txt', 'r') as f:
+        castles = f.readlines()
+    f.close()
+except FileNotFoundError:
+    print('CastleData.txt not found.')
+try:
+    with open('townList.txt', 'r') as f:
+        towns = f.readlines()
+    f.close()
+except FileNotFoundError:
+    print('townList.txt not found.')
+try:
+    with open('stateList.txt', 'r') as f:
+        states = f.readlines()
+    f.close()
+except FileNotFoundError:
+    print('stateList.txt not found.')
+try:
+    with open('countryList.txt', 'r') as f:
+        countries = f.readlines()
+    f.close()
+except FileNotFoundError:
+    print('countryList.txt not found.')
+try:
+    with open('typeList.txt', 'r') as f:
+        types = f.readlines()
+    f.close()
+except FileNotFoundError:
+    print('typeList.txt not found.')
 
 index = 0
 w = open('CastleData.txt', 'w')

@@ -3,9 +3,12 @@ import webbrowser
 import requests
 
 #This script makes it easier for the user to reference the correct WikiData-item on the OSM-Entry
-with open("CastleUpload.csv") as f:
-  lineList = f.readlines()
-f.close()
+try:
+    with open("CastleUpload.csv") as f:
+        lineList = f.readlines()
+    f.close()
+except FileNotFoundError:
+    print('CastleUpload.csv not found.')
 
 #Gets the index from a file
 try:
@@ -52,7 +55,7 @@ while index < len(lineList):
     w = open('temp.txt', 'w')
     w.write(str(index))
     w.close()
-    
+
 w = open('temp.txt', 'w')
 w.write('1')
 w.close()
