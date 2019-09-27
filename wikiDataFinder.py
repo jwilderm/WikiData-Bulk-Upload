@@ -52,3 +52,7 @@ while index < len(lineList):
     w = open('temp.txt', 'w')
     w.write(str(index))
     w.close()
+    
+w = open('temp.txt', 'w')
+w.write('1')
+w.close()
