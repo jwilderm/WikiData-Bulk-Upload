@@ -101,20 +101,11 @@ def find_type(osm_id, osm_type):
         if '<a title="' in line and '">stately</a>' in line:
             castle_type = 'Stately'
             break
-        elif '<a title="' in line and '">defensive</a>' in line:
-            castle_type = 'Castle'
-            break
         elif 'a title="' in line and '">manor</a>' in line:
             castle_type = 'Manor'
             break
         elif 'a title="' in line and '">fortress</a>' in line:
             castle_type = 'Fortress'
-            break
-        elif '<td class="browse-tag-v">tower</td>' in line:
-            castle_type = 'Castle'
-            break
-        elif '<td class="browse-tag-v">castle</td>' in line:
-            castle_type = 'Castle'
             break
         else:
             castle_type = 'Castle'
@@ -128,13 +119,7 @@ def get_language(name, country, castle_type):
         languages[1] = name
     elif country == 'Italy':
         languages[2] = name
-    elif country == 'Switzerland':
-        languages[0] = name
-    elif country == 'Germany':
-        languages[0] = name
-    elif country == 'Austria':
-        languages[0] = name
-    elif country == 'Liechtenstein':
+    else:
         languages[0] = name
 
     languages[3] = f'{type_de[castle_type]}({country_de[country]})'
