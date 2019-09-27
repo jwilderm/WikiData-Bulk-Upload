@@ -27,7 +27,7 @@ except:
     index = 1
 
 while index < len(castles):
-    print('Current index= ' + str(index))
+    print(f'Current index= {str(index)}')
     data = castles[index].split(',')
     coordinates_x = data[-1].split('/')[0][1:]
     coordinates_y = data[-1].split('/')[1][:-1]
