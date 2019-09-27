@@ -2,6 +2,12 @@ import urllib.request
 import webbrowser
 import requests
 
+#Saves the index into a file
+def save_temporary(string_index):
+    with open('temp.txt', 'w') as w:
+        w.write(string_index)
+    w.close()
+
 #This script makes it easier for the user to reference the correct WikiData-item on the OSM-Entry
 try:
     with open("CastleUpload.csv") as f:
@@ -47,15 +53,11 @@ while index < len(castles):
     #On a new browser-tab, the edit-page of osm opens on the given coordinates
     webbrowser.open_new_tab('https://www.openstreetmap.org/edit#map=19/' + coordinates_x[:8] + '/' + coordinates_y[:7])
 
-    #Asks the user to continue with the next castle and saves the index in a file
+    #Asks the user to continue with the next castle
     controller = input('Continue? Yes = Enter, No = Other input: ')
     if controller != '':
         break
     index += 1
-    w = open('temp.txt', 'w')
-    w.write(str(index))
-    w.close()
-
-w = open('temp.txt', 'w')
-w.write('1')
-w.close()
+    save_temporary(str(index))
+if index >= len(castles):
+    save_temporary('1')
