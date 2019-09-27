@@ -1,5 +1,6 @@
 import sys
 
+#This exception occurs when a list has incomplete data
 class ListIncompleteError(Exception):
     """Raised when one of the four lists are incomplete"""
     pass
@@ -37,6 +38,7 @@ except FileNotFoundError:
     print('typeList.txt not found.')
 
 index = 0
+output = ''
 try:
     w = open('CastleData.txt', 'w')
     while index < len(castles):
@@ -73,10 +75,12 @@ try:
         str = ''
         for data in castleData:
             str += (data + ',')
-        w.write(str[:-1])
+        output += str[:-1]
         index += 1
 except ListIncompleteError:
     for line in castles:
         w.write(line)
-finally:
     w.close()
+    sys.exit()
+w.write(output)
+w.close()
