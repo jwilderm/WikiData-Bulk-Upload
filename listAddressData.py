@@ -8,9 +8,7 @@ inTownList = False
 inStateList = False
 
 townList = []
-townQs = []
 stateList = []
-stateQs = []
 
 # If there already are some towns and states in the output-files (from previous castle-lists), this part of the script reads through these files too
 try:
@@ -18,24 +16,24 @@ try:
         towns = t.readlines()
     t.close()
     i = 0
-    while i < len(towns):
+    while i < len(towns) - 1:
         townList[i] = towns[i].split(',')[0]
-        townQs[i] = towns[i].split(',')[1]
         i += 1
 except FileNotFoundError:
     townList = []
+    towns = []
 
 try:
     with open('stateList.txt', 'r') as s:
         states = s.readlines()
     s.close()
     i = 0
-    while i < len(states):
+    while i < len(states) - 1:
         stateList[i] = states[i].split(',')[0]
-        stateQs[i] = states[i].split(',')[1]
         i += 1
 except FileNotFoundError:
     stateList = []
+    states = []
 
 # This part makes sure the towns and states only appear once in the arrays, it generates no duplicates
 while index < len(castles):
@@ -61,8 +59,8 @@ while index < len(castles):
 w = open('townList.txt', 'w')
 i = 0
 while i < len(townList):
-    if i < len(townQs):
-        w.write(townList[i] + ',' + townQs[i] + '\n')
+    if i < len(towns):
+        w.write(towns[i])
     else:
         w.write(townList[i] + ',\n')
     i += 1
@@ -71,8 +69,8 @@ w.close()
 v = open('stateList.txt', 'w')
 i = 0
 while i < len(stateList):
-    if i < len(stateQs):
-        v.write(stateList[i] + ',' + stateQs[i] + '\n')
+    if i < len(states):
+        v.write(states[i])
     else:
         v.write(stateList[i] + ',\n')
     i += 1
