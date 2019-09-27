@@ -40,7 +40,7 @@ while index < len(castles):
     try:
         json_data = r.json()
     except:
-        exec(open('u:/Desktop/burgegschmeus/wikiDataFinder.py').read())
+        exec(open('wikiDataFinder.py').read())
 
     amount_of_results = len(json_data['results']['bindings'])
     
@@ -51,7 +51,7 @@ while index < len(castles):
         print('no results found')
 
     #On a new browser-tab, the edit-page of osm opens on the given coordinates
-    webbrowser.open_new_tab('https://www.openstreetmap.org/edit#map=19/' + coordinates_x[:8] + '/' + coordinates_y[:7])
+    webbrowser.open_new_tab(f'https://www.openstreetmap.org/edit#map=19/{coordinates_x[:8]}/{coordinates_y[:7]}')
 
     #Asks the user to continue with the next castle
     controller = input('Continue? Yes = Enter, No = Other input: ')
