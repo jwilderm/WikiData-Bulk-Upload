@@ -1,6 +1,54 @@
 import urllib.request
 import json
 
+country_de = {
+    'Switzerland': 'Schweiz',
+    'Germany': 'Deutschland',
+    'Austria': 'Österreich',
+    'France': 'Frankreich',
+    'Italy': 'Italien',
+    'Liechtenstein': 'Liechtenstein'
+}
+
+country_fr = {
+    'Switzerland': 'Suisse',
+    'Germany': 'Allemagne',
+    'Austria': 'Autriche',
+    'France': 'France',
+    'Italy': 'Italie',
+    'Liechtenstein': 'Liechtenstein'
+}
+
+country_it = {
+    'Switzerland': 'Svizzera',
+    'Germany': 'Germania',
+    'Austria': 'Austria',
+    'France': 'Francia',
+    'Italy': 'Italia',
+    'Liechtenstein': 'Liechtenstein'
+}
+
+type_de = {
+    'Castle': 'Burg',
+    'Stately': 'Schloss',
+    'Manor': 'Herrenhaus',
+    'Fortress': 'Fort'
+}
+
+type_fr = {
+    'Castle': 'Château fort',
+    'Stately': 'Château',
+    'Manor': 'Maison bourgeoise',
+    'Fortress': 'Fort'
+}
+
+type_it = {
+    'Castle': 'Castello',
+    'Stately': 'Castello',
+    'Manor': 'Magione',
+    'Fortress': 'Forte'
+}
+
 # This method gets the town, state, country and coordinates of the castle from nominatim/lookup
 def find_address(osm_id, osm_type):
     address = ['','','','']
@@ -42,7 +90,7 @@ def find_address(osm_id, osm_type):
 
 # This method searches for the castle_type on openstreetmap
 def find_type(osm_id, osm_type):
-    fp = urllib.request.urlopen('https://www.openstreetmap.org/{osm_type}/{osm_id}'.format(osm_type=osm_type,osm_id=osm_id))
+    fp = urllib.request.urlopen(f'https://www.openstreetmap.org/{osm_type}/{osm_id}')
     my_bytes = fp.read()
 
     my_string = my_bytes.decode("utf8")
@@ -75,47 +123,23 @@ def find_type(osm_id, osm_type):
 # This method speculates what the language of the name of the castle is and also generates a simple description in all three languages
 def get_language(name, country, castle_type):
     languages = ['', '', '', '', '', '']
-    country_nr = 0
-    country_de = ['Schweiz', 'Deutschland', 'Österreich', 'Frankreich', 'Italien', 'Liechtenstein']
-    country_fr = ['Suisse', 'Allemagne', 'Autriche', 'France', 'Italie', 'Liechtenstein']
-    country_it = ['Svizzera', 'Germania', 'Austria', 'Francia', 'Italia', 'Liechtenstein']
-
-    type_nr = 0
-    type_de = ['Burg', 'Schloss', 'Herrenhaus', 'Fort']
-    type_fr = ['Château fort', 'Château', 'Maison bourgeoise', 'Fort']
-    type_it = ['Castello', 'Castello', 'Magione', 'Forte']
     
     if country == 'France':
         languages[1] = name
-        country_nr = 3
     elif country == 'Italy':
         languages[2] = name
-        country_nr = 4
     elif country == 'Switzerland':
         languages[0] = name
-        country_nr = 0
     elif country == 'Germany':
         languages[0] = name
-        country_nr = 1
     elif country == 'Austria':
         languages[0] = name
-        country_nr = 2
     elif country == 'Liechtenstein':
         languages[0] = name
-        country_nr = 5
-    
-    if castle_type == 'Castle':
-        type_nr = 0
-    elif castle_type == 'Stately':
-        type_nr = 1
-    elif castle_type == 'Manor':
-        type_nr = 2
-    elif castle_type == 'Fortress':
-        type_nr = 3
 
-    languages[3] = f'{type_de[type_nr]}({country_de[country_nr]})'
-    languages[4] = f'{type_fr[type_nr]}({country_fr[country_nr]})'
-    languages[5] = f'{type_it[type_nr]}({country_it[country_nr]})'
+    languages[3] = f'{type_de[castle_type]}({country_de[country]})'
+    languages[4] = f'{type_fr[castle_type]}({country_fr[country]})'
+    languages[5] = f'{type_it[castle_type]}({country_it[country]})'
     return languages
 
 index = 0
