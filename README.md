@@ -19,11 +19,11 @@ This repository contains python-scripts which helps one to create a list of Wiki
   - It replaces all the castle-types, towns, states and countries in "CastleData.txt" with the matching Q-Numbers in the four list-files.
 - Make sure the languages of the names of the castles are correct
   - The names of the castles in "CastleData.txt" may be in the incorrect position. (Name-DE,Name-FR,Name-IT,...)
-  - You have to correct that issue manually, but the script "languageConverter.py" can help you with that.
+  - You have to correct that issue manually, but the script ```languageConverter.py``` can help you with that.
   - When you execute it, it displays all the castles step by step. You'll see if the name is at the correct position or not. The script allows you to correct it if necessary before it proceeds to display the following castle.
   - When the script finishes iterating through all the castles, it creates a new file "CastleUpload.csv". If there somehow already is such a file, it'll get overwritten.
 - Generate the WikiData-items
-  - Copy all the data from ```CastleUpload.csv```.
+  - Copy all the data from "CastleUpload.csv".
   - Go to https://tools.wmflabs.org/quickstatements/#/batch. (You need an account to be able to create WikiData-items)
   - Paste the data into the text-box and click on "Import CSV commands"
   - Click "Run" or "Run in background". It should generate one WikiData-item for each castle.
