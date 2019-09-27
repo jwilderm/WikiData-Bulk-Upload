@@ -15,6 +15,9 @@ This repository contains python-scripts which helps one to create a list of Wiki
   - It goes through "CastleData.txt" and extends "townList.txt" and "stateList.txt" with towns and states which appear in CastleData but don't exist in the lists yet. "countryList.txt" and "typeList.txt" already are complete.
   - The script will crash if you execute it but townList or stateList contain data with no matching Q-Number next to the ",".
   - Open "townList.txt" and "stateList.txt". Fill in matching Q-Numbers from https://www.wikidata.org/wiki/Wikidata:Main_Page next to the commas of the containing data (no whitespaces between). Make sure all the towns and states have their Q-Number before you continue.
+  - In these lists, the towns and states are easy to identify, because of how they are displayed:
+    - Towns: "Town">"State">"Country"
+    - States: "State">"Country"
   - Run the script ```QNumberConverter.py```
   - It replaces all the castle-types, towns, states and countries in "CastleData.txt" with the matching Q-Numbers in the four list-files.
 - Make sure the languages of the names of the castles are correct
