@@ -24,7 +24,7 @@ while index < len(castles):
 
     while True:
         print('DE\tFR\tIT')
-        print('-' + castle_data[0] + '\t-' + castle_data[1] + '\t-' + castle_data[2])
+        print(f'-{castle_data[0]}\t-{castle_data[1]}\t-{castle_data[2]}')
         controll = input('Language: DE (d), FR (f), IT (i), correct (enter)')
         if controll == 'd':
             castle_data[0] = change_lang(castle_data[0], castle_data[1], castle_data[2])
@@ -46,7 +46,7 @@ while index < len(castles):
 
     str = ','
     for data in castle_data:
-        str += (data + ',')
+        str.append(f'{data},')
     w.write(str[:-1])
     index += 1
 w.close()

@@ -113,9 +113,9 @@ def get_language(name, country, castle_type):
     elif castle_type == 'Fortress':
         type_nr = 3
 
-    languages[3] = type_de[type_nr] + ' (' + country_de[country_nr] + ')'
-    languages[4] = type_fr[type_nr] + ' (' + country_fr[country_nr] + ')'
-    languages[5] = type_it[type_nr] + ' (' + country_it[country_nr] + ')'
+    languages[3] = f'{type_de[type_nr]}({country_de[country_nr]})'
+    languages[4] = f'{type_fr[type_nr]}({country_fr[country_nr]})'
+    languages[5] = f'{type_it[type_nr]}({country_it[country_nr]})'
     return languages
 
 index = 0
@@ -140,10 +140,10 @@ while index < len(castles):
     languages = get_language(data[2], address[2], castle_type)
 
     for line in languages:
-        w.write(line + ',')
-    address[1] = address[1] + '>' + address[2]
-    address[0] = address[0] + '>' + address[1]
-    w.write(castle_type + ',' + address[0] + ',' + address[1] + ',' + address[2] + ',' + address[3] + '\n')
+        w.write(f'{line},')
+    address[1] = f'{address[1]}>{address[2]}'
+    address[0] = f'{address[0]}>{address[1]}'
+    w.write(f'{castle_type},{address[0]},{address[1]},{address[2]},{address[3]}\n')
 
     index += 1
 w.close()

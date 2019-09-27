@@ -64,7 +64,7 @@ while i < len(town_list):
     if i < len(towns):
         w.write(towns[i])
     else:
-        w.write(town_list[i] + ',\n')
+        w.write(f'{town_list[i]},\n')
     i += 1
 w.close()
 
@@ -74,6 +74,6 @@ while i < len(state_list):
     if i < len(states):
         v.write(states[i])
     else:
-        v.write(state_list[i] + ',\n')
+        v.write(f'{state_list[i]},\n')
     i += 1
 v.close()

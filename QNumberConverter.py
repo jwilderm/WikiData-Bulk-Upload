@@ -74,8 +74,8 @@ try:
                 break
         str = ''
         for data in castle_data:
-            str += (data + ',')
-        output += str[:-1]
+            str.append(f'{data},')
+        output.append(str[:-1])
         index += 1
 except ListIncompleteError:
     for line in castles:
