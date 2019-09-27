@@ -52,11 +52,8 @@ type_it = {
 # This method gets the town, state, country and coordinates of the castle from nominatim/lookup
 def find_address(osm_id, osm_type):
     address = ['','','','']
-    fp = urllib.request.urlopen('https://nominatim.openstreetmap.org/lookup?osm_ids={osm_type}{osm_id}&format=json'.format(osm_type=osm_type.capitalize()[0],osm_id=osm_id))
-    my_bytes = fp.read()
-    my_string = my_bytes.decode("utf8")
-    my_split = my_string.split('\n')
-    fp.close()
+    my_split = read_html('https://nominatim.openstreetmap.org/lookup?osm_ids={osm_type}{osm_id}&format=json'.format(osm_type=osm_type.capitalize()[0],osm_id=osm_id))
+
     for line in my_split:
         if '[{' in line:
             json_data = json.loads(line[:-1][1:])
@@ -90,12 +87,7 @@ def find_address(osm_id, osm_type):
 
 # This method searches for the castle_type on openstreetmap
 def find_type(osm_id, osm_type):
-    fp = urllib.request.urlopen(f'https://www.openstreetmap.org/{osm_type}/{osm_id}')
-    my_bytes = fp.read()
-
-    my_string = my_bytes.decode("utf8")
-    my_split = my_string.split('\n')
-    fp.close()
+    my_split = read_html(f'https://www.openstreetmap.org/{osm_type}/{osm_id}')
 
     for line in my_split:
         if '<a title="' in line and '">stately</a>' in line:
@@ -127,6 +119,14 @@ def get_language(name, country, castle_type):
     languages[5] = f'{type_it[castle_type]}({country_it[country]})'
     return languages
 
+# Split lines of the html from the request
+def read_html(url):
+    fp = urllib.request.urlopen(url)
+    my_bytes = fp.read()
+    fp.close()
+    my_string = my_bytes.decode("utf8")
+    return my_string.split('\n')
+    
 index = 0
 # Read file and make a list of all castles
 try:
