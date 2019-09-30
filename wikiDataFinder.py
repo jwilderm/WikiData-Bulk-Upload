@@ -42,10 +42,11 @@ while index < len(castles):
     except:
         exec(open('wikiDataFinder.py').read())
 
-    amount_of_results = len(json_data['results']['bindings'])
+    results = json_data['results']['bindings']
+    amount_of_results = len(results)
     
     if(amount_of_results > 0):
-        for f in json_data['results']['bindings']:
+        for f in results:
             webbrowser.open_new_tab(f['place']['value'])
     else:
         print('no results found')
