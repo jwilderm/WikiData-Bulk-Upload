@@ -52,7 +52,8 @@ type_it = {
 # This method gets the town, state, country and coordinates of the castle from nominatim/lookup
 def find_address(osm_id, osm_type):
     address = ['','','','']
-    my_split = read_html('https://nominatim.openstreetmap.org/lookup?osm_ids={osm_type}{osm_id}&format=json'.format(osm_type=osm_type.capitalize()[0],osm_id=osm_id))
+    osm_type = osm_type.capitalize()[0]
+    my_split = read_html(f'https://nominatim.openstreetmap.org/lookup?osm_ids={osm_type}{osm_id}&format=json')
 
     for line in my_split:
         if '[{' in line:
@@ -70,19 +71,23 @@ def find_address(osm_id, osm_type):
         address[1] = json_data['address']['state']
     except:
         pass
-    if 'Schweiz' in json_data['address']['country'] or 'Switzerland' in json_data['address']['country']:
+
+    country = json_data['address']['country']
+    if 'Schweiz' in country or 'Switzerland' in country:
         address[2] = 'Switzerland'
-    elif 'Deutschland' in json_data['address']['country'] or 'Germany' in json_data['address']['country']:
+    elif 'Deutschland' in country or 'Germany' in country:
         address[2] = 'Germany'
-    elif 'Österreich' in json_data['address']['country'] or 'Austria' in json_data['address']['country']:
+    elif 'Österreich' in country or 'Austria' in country:
         address[2] = 'Austria'
-    elif 'Liechtenstein' in json_data['address']['country']:
+    elif 'Liechtenstein' in country:
         address[2] = 'Liechtenstein'
-    elif 'Frankreich' in json_data['address']['country'] or 'France' in json_data['address']['country']:
+    elif 'Frankreich' in country or 'France' in country:
         address[2] = 'France'
-    elif 'Italien' in json_data['address']['country'] or 'Italy' in json_data['address']['country'] or 'Italia' in json_data['address']['country']:
+    elif 'Italien' in country or 'Italy' in country or 'Italia' in country:
         address[2] = 'Italy'
+    
     address[3] = '@' + json_data['lat'] + '/' + json_data['lon']
+
     return address
 
 # This method searches for the castle_type on openstreetmap
@@ -124,7 +129,7 @@ def read_html(url):
     fp = urllib.request.urlopen(url)
     my_bytes = fp.read()
     fp.close()
-    my_string = my_bytes.decode("utf8")
+    my_string = my_bytes.decode('utf8')
     return my_string.split('\n')
     
 index = 0
