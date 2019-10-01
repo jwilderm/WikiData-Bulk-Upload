@@ -2,6 +2,7 @@
 This repository contains python-scripts which helps one to create a list of WikiData-Items of castles and towers
 
 ## The steps you take for uploading a bunch of castles to WikiData
+- For the scripts you'll need Python3 or any version above.
 - Get the castles from OSM into a text-file
   - Go to https://meta.wikimedia.org/wiki/Wikimedia_CH/Burgen-Dossier/FehlendeWikidataReferenzen
   - Copy all the data from the table (ID, Type, Name)
