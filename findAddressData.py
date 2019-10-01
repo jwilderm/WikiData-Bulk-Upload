@@ -59,20 +59,21 @@ def find_address(osm_id, osm_type):
         if '[{' in line:
             json_data = json.loads(line[:-1][1:])
             break
-    if 'town' in json_data['address']:
-        address[0] = json_data['address']['town']
-    elif 'village' in json_data['address']:
-        address[0] = json_data['address']['village']
-    elif 'city' in json_data['address']:
-        address[0] = json_data['address']['city']
+    address_data = json_data['address']
+    if 'town' in address_data:
+        address[0] = address_data['town']
+    elif 'village' in address_data:
+        address[0] = address_data['village']
+    elif 'city' in address_data:
+        address[0] = address_data['city']
     else:
         address[0] = 'Nothing'
     try:
-        address[1] = json_data['address']['state']
+        address[1] = address_data['state']
     except:
         pass
 
-    country = json_data['address']['country']
+    country = address_data['country']
     if 'Schweiz' in country or 'Switzerland' in country:
         address[2] = 'Switzerland'
     elif 'Deutschland' in country or 'Germany' in country:
